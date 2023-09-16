@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 children: [
                   Image.asset("assets/images/Logo.png", width: 100, height: 100, fit: BoxFit.fitWidth),
                   const SizedBox(height: 15),
-                  const Text("MediGuide", style: TextStyle(color: Color(0xFF9FB4C8), fontSize: 30))
+                  const Text("MediGuide", style: TextStyle(fontFamily: 'CarterOne', color: Color(0xFFFFFFFF), fontSize: 24))
                 ]
             )
           )
