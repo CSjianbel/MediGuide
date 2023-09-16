@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mediguide/layouts/home_screen.dart';
+import 'package:mediguide/theme/theme_constants.dart';
+import 'package:mediguide/utils/theme_utils.dart';
 
 class SplashScreen extends StatefulWidget {
     const SplashScreen({super.key});
@@ -29,15 +31,23 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     @override
     Widget build(BuildContext context) {
+        final ThemeData currentTheme = ThemeUtils.getTheme(context);
+
         return Material(
-            color: const Color(0xFF171F2A),
+            color: currentTheme.scaffoldBackgroundColor,
             child: Center(child:
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("assets/images/Logo.png", width: 100, height: 100, fit: BoxFit.fitWidth),
-                  const SizedBox(height: 15),
-                  const Text("MediGuide", style: TextStyle(fontFamily: 'CarterOne', color: Color(0xFFFFFFFF), fontSize: 24))
+                    Image.asset("assets/images/Logo.png", width: 100, height: 100, fit: BoxFit.fitWidth),
+                    const SizedBox(height: 15),
+                    Text("MediGuide",
+                        style: TextStyle(
+                            fontFamily: 'CarterOne',
+                            color: currentTheme == lightTheme ? darkForeground : lightForeground,
+                            fontSize: 24
+                        )
+                    )
                 ]
             )
           )
