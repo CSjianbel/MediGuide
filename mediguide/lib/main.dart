@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mediguide/layouts/splash.dart';
+import 'package:mediguide/layouts/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Splash()
+      home: const SplashScreen()
     );
   }
 }
