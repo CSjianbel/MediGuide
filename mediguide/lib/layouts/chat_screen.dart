@@ -25,7 +25,7 @@ class ChatScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration (
                   color: ThemeUtils.iconBackground(currentTheme),
-                  borderRadius: BorderRadius.all(Radius.circular(8.0))
+                  borderRadius: const BorderRadius.all(Radius.circular(8.0))
               ),
               child: const Icon(CustomIcons.ham, size: 20, color: accentColor)
           ), // The button to show the side drawer
@@ -60,13 +60,77 @@ class ChatScreen extends StatelessWidget {
         ],
       )
       ,
-      body: Center(
-        child: Switch(
-          value: themeManager.themeMode == ThemeMode.dark,
-          onChanged: (value) {
-            themeManager.toggleTheme();
-          },
-        ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: Switch(
+                value: themeManager.themeMode == ThemeMode.dark,
+                onChanged: (value) {
+                  themeManager.toggleTheme();
+                },
+              ),
+            ),
+          ),
+          const ChatInputSection(),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+class ChatInputSection extends StatelessWidget {
+  const ChatInputSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData currentTheme = ThemeUtils.getTheme(context);
+
+    return Container(
+      padding: const EdgeInsets.all(15.0),
+      color: currentTheme.appBarTheme.backgroundColor, // Background color for the input section
+      child: Row(
+        children: [
+          Expanded(
+            child: TextFormField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder (
+                  borderSide: BorderSide(
+                    color: ThemeUtils.iconBackground(currentTheme),
+                    width: 2, // Set the desired border width
+                  ),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                hintText: 'How are you feeling today?',
+                hintStyle: const TextStyle (
+                  fontFamily: 'Poppins',
+                  fontSize: 14,
+                ),
+              ),
+              style: const TextStyle (
+                fontFamily: 'Poppins',
+                fontSize: 14,
+              ),
+            ),
+          ),
+          const SizedBox(width: 15.0),
+          Container(
+            width: 45,
+            height: 45,
+            decoration: const BoxDecoration (
+              color: accentColor,
+              borderRadius: BorderRadius.all(Radius.circular(10.0))
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.send, color: lightForeground, size: 20),
+              onPressed: () {
+                // Add logic to send the message
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
