@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mediguide/layouts/home_screen.dart';
-import 'package:mediguide/theme/theme_constants.dart';
+import 'package:mediguide/layouts/chat_screen.dart';
 import 'package:mediguide/utils/theme_utils.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
         Future.delayed(const Duration(seconds: 2), () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const HomeScreen()));
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const ChatScreen()));
         });
     }
 
@@ -44,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                     Text("MediGuide",
                         style: TextStyle(
                             fontFamily: 'CarterOne',
-                            color: currentTheme == lightTheme ? darkForeground : lightForeground,
+                            color: ThemeUtils.foreground(currentTheme),
                             fontSize: 24
                         )
                     )
