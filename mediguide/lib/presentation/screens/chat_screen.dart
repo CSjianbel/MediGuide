@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:mediguide/enums/menu_actions.dart';
-import 'package:mediguide/theme/theme_constants.dart';
-import 'package:mediguide/theme/theme_manager.dart';
+import 'package:mediguide/utils/theme_constants.dart';
+import 'package:mediguide/utils/theme_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:mediguide/utils/theme_utils.dart';
 import 'package:mediguide/utils/custom_icons.dart';
@@ -104,7 +104,7 @@ class AppBarPopupMenu extends StatelessWidget {
               // perform action to create new chat
             }
             if (value == MenuAction.settings) {
-              // perform action to show settings
+              _showSettingsDialog(context);
             }
           },
           offset: const Offset(0, 80),
@@ -184,3 +184,37 @@ class ChatInputSection extends StatelessWidget {
     );
   }
 }
+
+
+void _showSettingsDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Settings'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                // Handle delete data logic here
+                Navigator.pop(context); // Close the dialog
+              },
+              child: Text('Delete Chat History'),
+            ),
+          ],
+        ),
+        actions: [
+          // Add any action buttons (e.g., Save, Cancel) here if needed
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // Close the dialog
+            },
+            child: Text('Close'),
+          ),
+        ],
+      );
+    },
+  );
+}
+

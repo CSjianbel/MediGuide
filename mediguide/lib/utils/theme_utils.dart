@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mediguide/theme/theme_constants.dart'; // Import your theme constants
+import 'package:mediguide/utils/theme_constants.dart'; // Import your theme constants
 
 class ThemeUtils {
   static ThemeData getTheme (BuildContext context) {

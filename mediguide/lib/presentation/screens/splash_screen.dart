@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mediguide/layouts/chat_screen.dart';
+import 'package:mediguide/presentation/screens/chat_screen.dart';
 import 'package:mediguide/utils/theme_utils.dart';
 
 class SplashScreen extends StatefulWidget {
