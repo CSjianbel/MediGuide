@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mediguide/layouts/splash_screen.dart';
-import 'package:mediguide/theme/theme_constants.dart';
-import 'package:mediguide/theme/theme_manager.dart';
+import 'package:mediguide/presentation/screens/splash_screen.dart';
+import 'package:mediguide/utils/theme_constants.dart';
+import 'package:mediguide/utils/theme_manager.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(
