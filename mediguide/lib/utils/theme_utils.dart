@@ -7,11 +7,11 @@ class ThemeUtils {
     return themeMode == Brightness.dark ? darkTheme : lightTheme;
   }
 
-  static Color foreground (ThemeData currentTheme) {
+  static Color getForeground (ThemeData currentTheme) {
     return currentTheme == lightTheme ? darkForeground : lightForeground;
   }
 
-  static Color iconBackground (ThemeData currentTheme) {
+  static Color getIconBackground (ThemeData currentTheme) {
     return currentTheme == lightTheme ? iconLightBackground : iconDarkBackground;
   }
 }

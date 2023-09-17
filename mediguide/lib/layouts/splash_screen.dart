@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                     Text("MediGuide",
                         style: TextStyle(
                             fontFamily: 'CarterOne',
-                            color: ThemeUtils.foreground(currentTheme),
+                            color: ThemeUtils.getForeground(currentTheme),
                             fontSize: 24
                         )
                     )
