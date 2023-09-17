@@ -14,4 +14,8 @@ class ThemeUtils {
   static Color getIconBackground (ThemeData currentTheme) {
     return currentTheme == lightTheme ? iconLightBackground : iconDarkBackground;
   }
+
+  static Color getShadowColor (ThemeData currentTheme) {
+    return currentTheme == lightTheme ? shadowLight : shadowDark;
+  }
 }

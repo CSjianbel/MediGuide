@@ -31,9 +31,283 @@ class ChatScreen extends StatelessWidget {
           ChatInputSection(),
         ],
       ),
+      drawer: NavigationDrawer(),
     );
   }
 }
+
+class NavigationDrawer extends StatelessWidget {
+  const NavigationDrawer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData currentTheme = ThemeUtils.getTheme(context);
+
+    return Drawer(
+      backgroundColor: currentTheme.scaffoldBackgroundColor,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            decoration: BoxDecoration(
+              color: currentTheme.appBarTheme.backgroundColor,
+              boxShadow: [
+                BoxShadow(
+                  color: ThemeUtils.getShadowColor(currentTheme),
+                  offset: const Offset(0, 2),
+                  blurRadius: 4
+                ),
+              ],
+            ),
+            width: double.infinity,
+            height: 70,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset("assets/images/Logo.png", width: 35, height: 35, fit: BoxFit.fitWidth),
+                      const SizedBox(width: 20),
+                      Text("MediGuide",
+                          style: TextStyle(
+                              fontFamily: 'CarterOne',
+                              color: ThemeUtils.getForeground(currentTheme),
+                              fontSize: 16
+                          )
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: ThemeUtils.getIconBackground(currentTheme),
+                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                  ),
+                  child: IconButton(
+                    color: ThemeUtils.getForeground(currentTheme),
+                    icon: const Icon(Icons.keyboard_arrow_left, size: 20, color: accentColor),
+                    onPressed: () {
+                      Scaffold.of(context).closeDrawer();
+                    },
+                  ),
+                ),
+              ]
+            ),
+          ),
+          Expanded(
+              child:
+              // Show chat history
+              ListView(
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+                children: <Widget>[
+                  CustomChatHistoryTile(
+                    title: "Cancer Prognosis",
+                    onTap: () {
+                      print("view this prognosis");
+                    },
+                    onDelete: () {
+                      print("delete this prognosis");
+                    },
+                  ),
+                  CustomChatHistoryTile(
+                    title: "tuberculosis Prognosis",
+                    onTap: () {
+                      print("view this prognosis");
+                    },
+                    onDelete: () {
+                      print("delete this prognosis");
+                    },
+                  ),
+                  CustomChatHistoryTile(
+                    title: "Diabetes Prognosis",
+                    onTap: () {
+                      print("view this prognosis");
+                    },
+                    onDelete: () {
+                      print("delete this prognosis");
+                    },
+                  ),
+                  CustomChatHistoryTile(
+                    title: "Possible Remedies for tuberculosis",
+                    onTap: () {
+                      print("view this prognosis");
+                    },
+                    onDelete: () {
+                      print("delete this prognosis");
+                    },
+                  ),
+                ],
+              ),
+
+              // Show this widget when there is no chat history yet
+              // Center(
+              //  child: Text("No chat history yet", style: TextStyle(fontFamily: 'Poppins', fontSize: 14, color: Color(0xFF858585)))
+              // )
+
+              // Show this widget when user is not signed in
+              // Center(
+              //     child: Text("Sign in to store chat history", style: TextStyle(fontFamily: 'Poppins', fontSize: 14, color: Color(0xFF858585)))
+              // )
+
+          ),
+          Container(
+            padding: const EdgeInsets.all(15.0),
+            width: double.infinity,
+            decoration: BoxDecoration (
+              color: currentTheme.appBarTheme.backgroundColor,
+              boxShadow: [
+                BoxShadow(
+                  color: ThemeUtils.getShadowColor(currentTheme),
+                  offset: const Offset(0, -1),
+                  blurRadius: 4,
+                ),
+              ]
+            ),
+            child: Column (
+              children: [
+                // Below widgets will only appear when user is signed in
+                const SizedBox(height: 5),
+
+                // Show User Profile when Signed In
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: 55,
+                          height: 55,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: accentColor, // Set the border color
+                              width: 1, // Set the border width
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              "assets/images/sample_user_picture.png",
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("JOHN DOE", style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold, fontSize: 14)),
+                            Text("email@gmail.com", style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Color(0xFF858585)))
+                          ],
+                        )
+                      ],
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          showSettingsDialog(context);
+                        },
+                        icon: const Icon(Icons.settings, color: Color(0xFFAFAFAF))
+                    )
+                  ],
+                ),
+
+                const SizedBox(height: 20),
+
+                // Above widgets will only appear when user is signed in
+
+                Divider(
+                  height: 1, // Set the height of the line
+                  color: ThemeUtils.getIconBackground(currentTheme),// Set the color of the line
+                  thickness: 2, // Set the thickness of the line
+                ),
+
+                // Gap between the sign out & user profile
+                const SizedBox(height: 20),
+
+                // Sign In Button
+                SizedBox(
+                  width: double.infinity,
+                  height: 45,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10), // Set the border radius here
+                        ),
+                      ),
+                      onPressed: () {
+                        // Sign in process here
+                      },
+                      child: const Text("Sign In", style: TextStyle(fontFamily: 'Poppins', fontSize: 14))
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+
+
+class CustomChatHistoryTile extends StatelessWidget {
+  final String title;
+  final VoidCallback onTap;
+  final VoidCallback onDelete;
+
+  const CustomChatHistoryTile({super.key,
+    required this.title,
+    required this.onTap,
+    required this.onDelete,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.only(left: 15.0, right: 5.0),
+          width: double.infinity,
+          height: 45,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Row(
+                  children: [
+                    const Icon(Icons.message_outlined, size: 14),
+                    const SizedBox(width: 15),
+                    SizedBox(
+                      width: 200, // Adjust this width as needed
+                      child: Text(
+                        title,
+                        style: const TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                        overflow: TextOverflow.ellipsis, // Adds ellipsis when text overflows
+                        maxLines: 1, // Limits text to one line
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: onDelete,
+                icon: const Icon(Icons.delete_outline_outlined, size: 16, color: Color(0x88FF5959)),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 
 
 class CustomAppBar extends StatelessWidget {
@@ -58,7 +332,7 @@ class CustomAppBar extends StatelessWidget {
           child: const Icon(CustomIcons.ham, size: 20, color: accentColor),
         ),
         onPressed: () {
-          // Add your logic to open the side drawer here
+          Scaffold.of(context).openDrawer();
         },
       ),
       title: Center(
@@ -121,7 +395,8 @@ class AppBarPopupMenu extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Text('Settings', style: TextStyle(fontSize: 14)),
             ),
-          ]),
+          ]
+      ),
     );
   }
 }
@@ -140,24 +415,30 @@ class ChatInputSection extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder (
-                  borderSide: BorderSide(
-                    color: ThemeUtils.getIconBackground(currentTheme),
-                    width: 2, // Set the desired border width
+            child: SizedBox(
+              width: double.infinity,
+              height: 45,
+              child: TextFormField(
+                //textAlignVertical: TextAlignVertical.center,
+                decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  border: OutlineInputBorder (
+                    borderSide: BorderSide(
+                      color: ThemeUtils.getIconBackground(currentTheme),
+                      width: 2, // Set the desired border width
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                  borderRadius: BorderRadius.circular(10.0),
+                  hintText: 'How are you feeling today?',
+                  hintStyle: const TextStyle (
+                    fontFamily: 'Poppins',
+                    fontSize: 14,
+                  ),
                 ),
-                hintText: 'How are you feeling today?',
-                hintStyle: const TextStyle (
+                style: const TextStyle (
                   fontFamily: 'Poppins',
                   fontSize: 14,
                 ),
-              ),
-              style: const TextStyle (
-                fontFamily: 'Poppins',
-                fontSize: 14,
               ),
             ),
           ),
