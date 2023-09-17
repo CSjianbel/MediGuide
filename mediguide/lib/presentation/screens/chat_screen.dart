@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:mediguide/utils/theme_utils.dart';
 import 'package:mediguide/utils/custom_icons.dart';
 
+import '../widgets/settings.dart';
+
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
 
@@ -14,8 +16,8 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeManager = Provider.of<ThemeManager>(context);
 
-    return Scaffold(
-      appBar: const PreferredSize(
+    return const Scaffold(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(70),
         child: CustomAppBar(),
       ),
@@ -23,15 +25,10 @@ class ChatScreen extends StatelessWidget {
         children: [
           Expanded(
             child: Center(
-              child: Switch(
-                value: themeManager.themeMode == ThemeMode.dark,
-                onChanged: (value) {
-                  themeManager.toggleTheme();
-                },
-              ),
+              // Chat Conversation Here
             ),
           ),
-          const ChatInputSection(),
+          ChatInputSection(),
         ],
       ),
     );
@@ -104,7 +101,7 @@ class AppBarPopupMenu extends StatelessWidget {
               // perform action to create new chat
             }
             if (value == MenuAction.settings) {
-              _showSettingsDialog(context);
+              showSettingsDialog(context);
             }
           },
           offset: const Offset(0, 80),
@@ -184,37 +181,3 @@ class ChatInputSection extends StatelessWidget {
     );
   }
 }
-
-
-void _showSettingsDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Settings'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                // Handle delete data logic here
-                Navigator.pop(context); // Close the dialog
-              },
-              child: Text('Delete Chat History'),
-            ),
-          ],
-        ),
-        actions: [
-          // Add any action buttons (e.g., Save, Cancel) here if needed
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context); // Close the dialog
-            },
-            child: Text('Close'),
-          ),
-        ],
-      );
-    },
-  );
-}
-

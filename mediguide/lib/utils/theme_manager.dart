@@ -24,4 +24,16 @@ class ThemeManager extends ChangeNotifier {
     await _prefs.setBool(key, _themeMode == ThemeMode.dark);
     notifyListeners();
   }
+
+  Future<void> setLightTheme() async {
+    _themeMode = ThemeMode.light;
+    await _prefs.setBool(key, false);
+    notifyListeners();
+  }
+
+  Future<void> setDarkTheme() async {
+    _themeMode = ThemeMode.dark;
+    await _prefs.setBool(key, true);
+    notifyListeners();
+  }
 }
