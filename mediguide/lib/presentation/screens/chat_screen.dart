@@ -16,25 +16,128 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeManager = Provider.of<ThemeManager>(context);
 
-    return const Scaffold(
-      appBar: PreferredSize(
+    return  Scaffold(
+      appBar: const PreferredSize(
         preferredSize: Size.fromHeight(70),
         child: CustomAppBar(),
       ),
       body: Column(
         children: [
           Expanded(
-            child: Center(
-              // Chat Conversation Here
+            child:
+            ListView (
+              padding: const EdgeInsets.all(15.0),
+              children: const <Widget>[
+                BotChatBubble(message: "Hi! I am MediGuide. How can I assist you today? If you're not feeling your best, just let me know your symptoms, and I'll do my best to provide you with some insights. Remember, I'm here to help, but for accurate medical advice, always consult a healthcare professional."),
+                UserChatBubble(message: "shivering, chills, joint pain, headache"),
+                BotChatBubble(message: "Based on your symptoms, you might have gastroenteritis. Gastroenteritis is a short-term illness triggered by the infection and inflammation of the digestive system."),
+                UserChatBubble(message: "shivering, chills, joint pain, headache"),
+                BotChatBubble(message: "Based on your symptoms, you might have gastroenteritis. Gastroenteritis is a short-term illness triggered by the infection and inflammation of the digestive system.")
+
+              ],
             ),
           ),
-          ChatInputSection(),
+          const ChatInputSection(),
         ],
       ),
-      drawer: NavigationDrawer(),
+      drawer: const NavigationDrawer(),
     );
   }
 }
+
+
+class UserChatBubble extends StatelessWidget {
+  final String message;
+
+  const UserChatBubble({super.key,
+    required this.message,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 15.0),
+      child: SizedBox(
+        width: double.infinity,
+        child: Row (
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              constraints: BoxConstraints(
+                maxWidth: screenWidth * 0.7, // Set the maximum width here
+              ),
+              padding: const EdgeInsets.all(15.0),
+              decoration: const BoxDecoration (
+                color: accentColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10.0),
+                  topRight: Radius.circular(2.0),
+                  bottomLeft: Radius.circular(10.0),
+                  bottomRight: Radius.circular(10.0),
+                ),
+              ),
+              child: Text(
+                message,
+                style: const TextStyle(fontFamily: 'Poppins', fontSize: 14, color: lightForeground),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class BotChatBubble extends StatelessWidget {
+  final String message;
+
+  const BotChatBubble({super.key,
+    required this.message,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData currentTheme = ThemeUtils.getTheme(context);
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 15.0),
+      child: SizedBox(
+        width: double.infinity,
+        child: Row (
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset("assets/images/Logo.png", width: 40, height: 40, fit: BoxFit.fitWidth),
+            const SizedBox(width: 20.0),
+            Container(
+              constraints: BoxConstraints(
+                maxWidth: screenWidth * 0.7, // Set the maximum width here
+              ),
+              padding: const EdgeInsets.all(15.0),
+              decoration: BoxDecoration (
+                color: currentTheme.appBarTheme.backgroundColor,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(2.0),
+                  topRight: Radius.circular(10.0),
+                  bottomLeft: Radius.circular(10.0),
+                  bottomRight: Radius.circular(10.0),
+                ),
+              ),
+              child: Text(
+                message,
+                style: const TextStyle(fontFamily: 'Poppins', fontSize: 14),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
