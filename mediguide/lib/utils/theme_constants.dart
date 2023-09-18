@@ -11,6 +11,8 @@ const Color iconDarkBackground = Color(0xFF1C2633);
 const Color iconLightBackground = Color(0xFFF5F5F5);
 const Color shadowDark = Color(0xFF0F1012);
 const Color shadowLight = Color(0xFFA0A0A0);
+const Color borderLight = Color(0xFFDBDBDB);
+const Color borderDark = Color(0xFF1C2633);
 
 ThemeData lightTheme = ThemeData (
     brightness: Brightness.light,

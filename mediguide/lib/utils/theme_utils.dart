@@ -18,4 +18,8 @@ class ThemeUtils {
   static Color getShadowColor (ThemeData currentTheme) {
     return currentTheme == lightTheme ? shadowLight : shadowDark;
   }
+
+  static Color getBorderColor (ThemeData currentTheme) {
+    return currentTheme == lightTheme ? borderLight : borderDark;
+  }
 }
