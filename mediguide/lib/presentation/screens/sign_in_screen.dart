@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mediguide/presentation/screens/sign_up_screen.dart';
 import 'package:mediguide/utils/theme_constants.dart';
 import '../../utils/theme_utils.dart';
 
@@ -137,7 +138,11 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      // Sign In process here
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SignUpScreen(),
+                        ),
+                      );
                     },
                     child: const Text("Create an Account", style: TextStyle(fontFamily: 'Poppins', fontSize: 14, color: accentColor)),
                   ),
