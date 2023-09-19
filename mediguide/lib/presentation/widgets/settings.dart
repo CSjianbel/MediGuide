@@ -31,7 +31,7 @@ class SettingsDialogState extends State<SettingsDialog> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Settings', style: TextStyle(fontFamily: 'Poppins', fontSize: 16)),
+                const Text('Settings', style: TextStyle(fontFamily: 'Poppins', fontSize: 14)),
                 IconButton(
                     onPressed: () {
                       Navigator.pop(context); // Close the dialog
@@ -47,7 +47,7 @@ class SettingsDialogState extends State<SettingsDialog> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Toggle Theme'),
+              const Text('Toggle Theme', style: TextStyle(fontFamily: 'Poppins', fontSize: 12)),
               Switch(
                 value: themeManager.themeMode == ThemeMode.dark,
                 onChanged: (value) {
@@ -60,7 +60,7 @@ class SettingsDialogState extends State<SettingsDialog> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Delete Data', style: TextStyle(fontFamily: 'Poppins')),
+              const Text('Delete Data', style: TextStyle(fontFamily: 'Poppins', fontSize: 12)),
               ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFF5959))

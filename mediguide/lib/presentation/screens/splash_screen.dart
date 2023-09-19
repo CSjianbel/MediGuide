@@ -4,52 +4,49 @@ import 'package:mediguide/presentation/screens/chat_screen.dart';
 import 'package:mediguide/utils/theme_utils.dart';
 
 class SplashScreen extends StatefulWidget {
-    const SplashScreen({super.key});
+  const SplashScreen({super.key});
 
-    @override
-    State<SplashScreen> createState() => _SplashScreenState();
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    @override
-    void initState() {
-        super.initState();
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const ChatScreen()));
+    });
+  }
 
-        Future.delayed(const Duration(seconds: 2), () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const ChatScreen()));
-        });
-    }
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
+    super.dispose();
+  }
 
-    @override
-    void dispose() {
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
-        super.dispose();
-    }
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData currentTheme = ThemeUtils.getTheme(context);
 
-    @override
-    Widget build(BuildContext context) {
-        final ThemeData currentTheme = ThemeUtils.getTheme(context);
-
-        return Material(
-            color: currentTheme.scaffoldBackgroundColor,
-            child: Center(child:
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                    Image.asset("assets/images/Logo.png", width: 100, height: 100, fit: BoxFit.fitWidth),
-                    const SizedBox(height: 15),
-                    Text("MediGuide",
-                        style: TextStyle(
-                            fontFamily: 'CarterOne',
-                            color: ThemeUtils.getForeground(currentTheme),
-                            fontSize: 24
-                        )
-                    )
-                ]
-            )
-          )
-        );
-    }
+    return Material(
+        color: currentTheme.scaffoldBackgroundColor,
+        child: Center(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Image.asset("assets/images/Logo.png",
+              width: 100, height: 100, fit: BoxFit.fitWidth),
+          const SizedBox(height: 15),
+          Text("MediGuide",
+              style: TextStyle(
+                  fontFamily: 'CarterOne',
+                  color: ThemeUtils.getForeground(currentTheme),
+                  fontSize: 24))
+        ])));
+  }
 }

@@ -32,7 +32,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Create an Account", style: TextStyle(fontFamily: 'Poppins', fontSize: 20, fontWeight: FontWeight.bold)),
+                    Text("Create an Account", style: TextStyle(fontFamily: 'Poppins', fontSize: 16, fontWeight: FontWeight.bold)),
                     Text("Provide your personal information", style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Color(0xFFAFAFAF)))
                   ],
                 ),
@@ -50,6 +50,8 @@ class SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 50),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Theme(
                     data: ThemeData(
@@ -73,7 +75,16 @@ class SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   const SizedBox(width: 5),
-                  const Text("I agree to the terms and conditions", style: TextStyle(fontFamily: 'Poppins', fontSize: 12), maxLines: 2),
+                  const Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 6),
+                        child: Text(
+                                "I agree to the terms and conditions",
+                                style: TextStyle(fontFamily: 'Poppins', fontSize: 12),
+                                maxLines: 2
+                        ),
+                      )
+                  )
                 ],
               ),
               const SizedBox(height: 20),
@@ -92,7 +103,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                       onPressed: agreeToTerms ? () {
                         // Handle sign up process here
                       } : null,
-                      child: const Text("Create Account", style: TextStyle(fontFamily: 'Poppins', fontSize: 14)),
+                      child: const Text("Create Account", style: TextStyle(fontFamily: 'Poppins', fontSize: 12)),
                     ),
                   )
                 ],
@@ -100,12 +111,12 @@ class SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: 40),
               Row(
                 children: [
-                  const Text("Already have an account? ", style: TextStyle(fontFamily: 'Poppins')),
+                  const Text("Already have an account? ", style: TextStyle(fontFamily: 'Poppins', fontSize: 12)),
                   TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text("Sign In", style: TextStyle(fontFamily: 'Poppins'))
+                      child: const Text("Sign In", style: TextStyle(fontFamily: 'Poppins', fontSize: 12))
                   )
                 ],
               )
@@ -147,8 +158,12 @@ class CustomInputField extends StatelessWidget {
           hintText: hint,
           hintStyle: const TextStyle(
             fontFamily: 'Poppins',
-            fontSize: 14,
+            fontSize: 12,
           ),
+        ),
+        style: const TextStyle (
+          fontFamily: 'Poppins',
+          fontSize: 12,
         ),
       ),
     );

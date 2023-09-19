@@ -74,7 +74,7 @@ class UserChatBubble extends StatelessWidget {
               constraints: BoxConstraints(
                 maxWidth: screenWidth * 0.7, // Set the maximum width here
               ),
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(12.0),
               decoration: const BoxDecoration(
                 color: accentColor,
                 borderRadius: BorderRadius.only(
@@ -88,7 +88,7 @@ class UserChatBubble extends StatelessWidget {
                 message,
                 style: const TextStyle(
                     fontFamily: 'Poppins',
-                    fontSize: 14,
+                    fontSize: 12,
                     color: lightForeground),
               ),
             ),
@@ -119,14 +119,17 @@ class BotChatBubble extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset("assets/images/Logo.png",
-                width: 40, height: 40, fit: BoxFit.fitWidth),
-            const SizedBox(width: 20.0),
+            Padding(
+              padding: EdgeInsets.only(top: 5),
+              child: Image.asset("assets/images/Logo.png",
+                  width: 25, height: 25, fit: BoxFit.fitWidth),
+            ),
+            const SizedBox(width: 10.0),
             Container(
               constraints: BoxConstraints(
                 maxWidth: screenWidth * 0.7, // Set the maximum width here
               ),
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 color: currentTheme.appBarTheme.backgroundColor,
                 borderRadius: const BorderRadius.only(
@@ -138,7 +141,7 @@ class BotChatBubble extends StatelessWidget {
               ),
               child: Text(
                 message,
-                style: const TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                style: const TextStyle(fontFamily: 'Poppins', fontSize: 12),
               ),
             ),
           ],
@@ -208,7 +211,7 @@ class NavigationDrawer extends StatelessWidget {
             child:
                 // Show chat history
                 ListView(
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
               children: <Widget>[
                 CustomChatHistoryTile(
                   title: "Cancer Prognosis",
@@ -308,11 +311,11 @@ class NavigationDrawer extends StatelessWidget {
                                 style: TextStyle(
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 14)),
+                                    fontSize: 12)),
                             Text("email@gmail.com",
                                 style: TextStyle(
                                     fontFamily: 'Poppins',
-                                    fontSize: 12,
+                                    fontSize: 10,
                                     color: Color(0xFF858585)))
                           ],
                         )
@@ -347,8 +350,7 @@ class NavigationDrawer extends StatelessWidget {
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              10),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                       onPressed: () {
@@ -360,7 +362,7 @@ class NavigationDrawer extends StatelessWidget {
                       },
                       child: const Text("Sign In",
                           style:
-                              TextStyle(fontFamily: 'Poppins', fontSize: 14))),
+                              TextStyle(fontFamily: 'Poppins', fontSize: 12))),
                 )
               ],
             ),
@@ -370,6 +372,7 @@ class NavigationDrawer extends StatelessWidget {
     );
   }
 }
+
 
 class CustomChatHistoryTile extends StatelessWidget {
   final String title;
@@ -385,46 +388,45 @@ class CustomChatHistoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.only(left: 15.0, right: 5.0),
-          width: double.infinity,
-          height: 45,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Row(
-                  children: [
-                    const Icon(Icons.message_outlined, size: 14),
-                    const SizedBox(width: 15),
-                    SizedBox(
-                      width: 200,
-                      child: Text(
-                        title,
-                        style: const TextStyle(
-                            fontFamily: 'Poppins', fontSize: 14),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1, // Limits text to one line
-                      ),
+    final ThemeData currentTheme = ThemeUtils.getTheme(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: TextButton(
+              onPressed: () {
+                // Your onPressed logic here
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.message_outlined, size: 14, color: ThemeUtils.getForeground(currentTheme),),
+                  const SizedBox(width: 10.0), // Adjust spacing as needed
+                  Expanded(
+                    child: Text(
+                      title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: ThemeUtils.getForeground(currentTheme)),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              IconButton(
-                onPressed: onDelete,
-                icon: const Icon(Icons.delete_outline_outlined,
-                    size: 16, color: Color(0x88FF5959)),
-              ),
-            ],
+            ),
           ),
-        ),
+          IconButton(
+            onPressed: () {
+              // delete button onPressed logic here
+            },
+            icon: const Icon(Icons.delete_outline_outlined, size: 14, color: Color(0xFFFF5959)),
+          )
+        ],
       ),
     );
   }
@@ -462,7 +464,7 @@ class CustomAppBar extends StatelessWidget {
             color: ThemeUtils.getForeground(currentTheme),
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w400,
-            fontSize: 16,
+            fontSize: 14,
           ),
         ),
       ),
@@ -499,18 +501,18 @@ class AppBarPopupMenu extends StatelessWidget {
           itemBuilder: (context) => [
                 const PopupMenuItem(
                   value: MenuAction.deleteChat,
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text('Delete Chat', style: TextStyle(fontSize: 14)),
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Text('Delete Chat', style: TextStyle(fontSize: 12)),
                 ),
                 const PopupMenuItem(
                   value: MenuAction.newChat,
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text('New Chat', style: TextStyle(fontSize: 14)),
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Text('New Chat', style: TextStyle(fontSize: 12)),
                 ),
                 const PopupMenuItem(
                   value: MenuAction.settings,
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text('Settings', style: TextStyle(fontSize: 14)),
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Text('Settings', style: TextStyle(fontSize: 12)),
                 ),
               ]),
     );
@@ -547,12 +549,12 @@ class ChatInputSection extends StatelessWidget {
                   hintText: 'How are you feeling today?',
                   hintStyle: const TextStyle(
                     fontFamily: 'Poppins',
-                    fontSize: 14,
+                    fontSize: 12,
                   ),
                 ),
                 style: const TextStyle(
                   fontFamily: 'Poppins',
-                  fontSize: 14,
+                  fontSize: 12,
                 ),
               ),
             ),

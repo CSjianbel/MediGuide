@@ -11,7 +11,6 @@ void main() => runApp(
   ),
 );
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -21,11 +20,12 @@ class MyApp extends StatelessWidget {
     final themeManager = Provider.of<ThemeManager>(context);
 
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: themeManager.themeMode,
-      home: const SplashScreen()
+        debugShowCheckedModeBanner: false,
+        title: 'MediGuide',
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        themeMode: themeManager.themeMode,
+        home: const SplashScreen()
     );
   }
 }
