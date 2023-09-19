@@ -19,7 +19,7 @@ class SignInScreen extends StatelessWidget {
             maxWidth: 500.0,
           ),
           padding: const EdgeInsets.all(25.0),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          child: Column(children: [
             Row(
               children: [
                   Container(
@@ -36,119 +36,130 @@ class SignInScreen extends StatelessWidget {
                 ),
               ]
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset("assets/images/Logo.png",
-                    width: 50, height: 50, fit: BoxFit.fitWidth),
-                const SizedBox(height: 15),
-                Text("MediGuide",
-                    style: TextStyle(
-                        fontFamily: 'CarterOne',
-                        color: ThemeUtils.getForeground(currentTheme),
-                        fontSize: 20)),
-                const Text("your medical companion",
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Color(0xFFAFAFAF),
-                      fontSize: 12,
-                    ))
-              ],
-            ),
-            const SizedBox(height: 50),
-            const SizedBox(
-              width: double.infinity,
+            Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text("Login",
-                      style: TextStyle(
-                          fontFamily: "Poppins",
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold)),
-                  Text("Enter your email and password",
-                      style: TextStyle(
-                          fontFamily: "Poppins",
-                          fontSize: 12,
-                          color: Color(0xFFAFAFAF)))
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset("assets/images/Logo.png",
+                          width: 50, height: 50, fit: BoxFit.fitWidth),
+                      const SizedBox(height: 15),
+                      Text("MediGuide",
+                          style: TextStyle(
+                              fontFamily: 'CarterOne',
+                              color: ThemeUtils.getForeground(currentTheme),
+                              fontSize: 20)),
+                      const Text("your medical companion",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFFAFAFAF),
+                            fontSize: 12,
+                          ))
+                    ],
+                  ),
+
+                  const Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Login",
+                                style: TextStyle(
+                                    fontFamily: "Poppins",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold)),
+                            Text("Enter your email and password",
+                                style: TextStyle(
+                                    fontFamily: "Poppins",
+                                    fontSize: 12,
+                                    color: Color(0xFFAFAFAF)))
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          CustomInputField(
+                              inputIcon: Icons.email_outlined,
+                              hint: 'Enter email address',
+                              isPassword: false),
+                          SizedBox(height: 15),
+                          CustomInputField(
+                              inputIcon: Icons.lock_outlined,
+                              hint: 'Enter password',
+                              isPassword: true),
+                          SizedBox(height: 10),
+                          Text("Forgot password?",
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 10,
+                                  color: Color(0xFFAFAFAF)))
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton (
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  10),
+                            ),
+                          ),
+                          onPressed: () {
+                            // Sign In process here
+                          },
+                          child: const Text("Sign In", style: TextStyle(fontFamily: 'Poppins', fontSize: 12)),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Divider(
+                        height: 1,
+                        color: ThemeUtils.getIconBackground(currentTheme),
+                        thickness: 2,
+                      ),
+                      const SizedBox(height: 20),
+                      Container(
+                        width: double.infinity,
+                        height: 50,
+                        decoration: BoxDecoration (
+                            border: Border.all(width: 2, color: accentColor),
+                            borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: ElevatedButton (
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: const Color(0x00000000),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  10),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => SignUpScreen(),
+                              ),
+                            );
+                          },
+                          child: const Text("Create an Account", style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: accentColor)),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                CustomInputField(
-                    inputIcon: Icons.email_outlined,
-                    hint: 'Enter email address',
-                    isPassword: false),
-                SizedBox(height: 15),
-                CustomInputField(
-                    inputIcon: Icons.lock_outlined,
-                    hint: 'Enter password',
-                    isPassword: true),
-                SizedBox(height: 10),
-                Text("Forgot password?",
-                    style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 10,
-                        color: Color(0xFFAFAFAF)))
-              ],
-            ),
-            const SizedBox(height: 40),
-            Column(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton (
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            10),
-                      ),
-                    ),
-                    onPressed: () {
-                        // Sign In process here
-                    },
-                    child: const Text("Sign In", style: TextStyle(fontFamily: 'Poppins', fontSize: 14)),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Divider(
-                  height: 1,
-                  color: ThemeUtils.getIconBackground(currentTheme),
-                  thickness: 2,
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  width: double.infinity,
-                  height: 50,
-                  decoration: BoxDecoration (
-                    border: Border.all(width: 2, color: accentColor),
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: ElevatedButton (
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      backgroundColor: const Color(0x00000000),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            10),
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => SignUpScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text("Create an Account", style: TextStyle(fontFamily: 'Poppins', fontSize: 14, color: accentColor)),
-                  ),
-                ),
-              ],
-            )
           ]),
         ),
       ),
@@ -195,7 +206,7 @@ class CustomInputField extends StatelessWidget {
               ),
             ),
             child:
-                Icon(inputIcon, color: ThemeUtils.getForeground(currentTheme)),
+                Icon(inputIcon, color: ThemeUtils.getForeground(currentTheme), size: 16),
           ),
           Expanded(
             child: Container(
@@ -221,8 +232,12 @@ class CustomInputField extends StatelessWidget {
                     hintText: hint,
                     hintStyle: const TextStyle(
                       fontFamily: 'Poppins',
-                      fontSize: 14,
+                      fontSize: 12,
                     ),
+                  ),
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 12,
                   ),
                 )),
           )
