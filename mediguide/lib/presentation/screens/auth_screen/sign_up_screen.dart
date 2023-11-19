@@ -38,7 +38,7 @@ class SignUpScreenState extends State<SignUpScreen> {
       Navigator.pop(context);
       // Handle successful sign-in
     } catch (e) {
-      // Handle sign-in failure
+      // Handle sign-up failure
       print(e.toString());
     }
   }
