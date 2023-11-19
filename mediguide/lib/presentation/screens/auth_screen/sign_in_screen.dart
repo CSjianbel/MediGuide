@@ -1,10 +1,61 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mediguide/presentation/screens/auth_screen/sign_up_screen.dart';
+import 'package:mediguide/presentation/screens/chat_screen/chat_screen.dart';
 import 'package:mediguide/utils/theme_constants.dart';
-import '../../../utils/theme_utils.dart';
+import 'package:mediguide/utils/theme_utils.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  Future<void> login(context) async {
+    try {
+      print('Logging in!!!');
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+
+      // Navigate to chat screen for successful login
+      if (userCredential.user != null) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const ChatScreen(),
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle sign-up failure
+      print(e.toString());
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Login Failed'),
+            content: const Text('Invalid email or password. Please try again.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,22 +71,20 @@ class SignInScreen extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(25.0),
           child: Column(children: [
-            Row(
-              children: [
-                  Container(
-                    decoration: BoxDecoration (
-                      color: ThemeUtils.getIconBackground(currentTheme),
-                      borderRadius: BorderRadius.circular(10.0)
-                    ),
-                    child: IconButton (
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.keyboard_arrow_left, color: accentColor, size: 20),
-                  ),
+            Row(children: [
+              Container(
+                decoration: BoxDecoration(
+                    color: ThemeUtils.getIconBackground(currentTheme),
+                    borderRadius: BorderRadius.circular(10.0)),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.keyboard_arrow_left,
+                      color: accentColor, size: 20),
                 ),
-              ]
-            ),
+              ),
+            ]),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -59,10 +108,9 @@ class SignInScreen extends StatelessWidget {
                           ))
                     ],
                   ),
-
-                  const Column(
+                  Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: double.infinity,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,21 +128,23 @@ class SignInScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           CustomInputField(
                               inputIcon: Icons.email_outlined,
                               hint: 'Enter email address',
-                              isPassword: false),
-                          SizedBox(height: 15),
+                              isPassword: false,
+                              controller: emailController),
+                          const SizedBox(height: 15),
                           CustomInputField(
                               inputIcon: Icons.lock_outlined,
                               hint: 'Enter password',
-                              isPassword: true),
-                          SizedBox(height: 10),
-                          Text("Forgot password?",
+                              isPassword: true,
+                              controller: passwordController),
+                          const SizedBox(height: 10),
+                          const Text("Forgot password?",
                               style: TextStyle(
                                   fontFamily: 'Poppins',
                                   fontSize: 10,
@@ -103,23 +153,23 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   Column(
                     children: [
                       SizedBox(
                         width: double.infinity,
                         height: 50,
-                        child: ElevatedButton (
+                        child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  10),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                           onPressed: () {
-                            // Sign In process here
+                            login(context);
                           },
-                          child: const Text("Sign In", style: TextStyle(fontFamily: 'Poppins', fontSize: 12)),
+                          child: const Text("Sign In",
+                              style: TextStyle(
+                                  fontFamily: 'Poppins', fontSize: 12)),
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -132,17 +182,15 @@ class SignInScreen extends StatelessWidget {
                       Container(
                         width: double.infinity,
                         height: 50,
-                        decoration: BoxDecoration (
+                        decoration: BoxDecoration(
                             border: Border.all(width: 2, color: accentColor),
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: ElevatedButton (
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             backgroundColor: const Color(0x00000000),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  10),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                           onPressed: () {
@@ -152,7 +200,11 @@ class SignInScreen extends StatelessWidget {
                               ),
                             );
                           },
-                          child: const Text("Create an Account", style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: accentColor)),
+                          child: const Text("Create an Account",
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 12,
+                                  color: accentColor)),
                         ),
                       ),
                     ],
@@ -171,13 +223,14 @@ class CustomInputField extends StatelessWidget {
   final IconData inputIcon;
   final String hint;
   final bool isPassword;
+  final TextEditingController controller;
 
-  const CustomInputField({
-    super.key,
-    required this.inputIcon,
-    required this.hint,
-    required this.isPassword,
-  });
+  const CustomInputField(
+      {super.key,
+      required this.inputIcon,
+      required this.hint,
+      required this.isPassword,
+      required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -199,14 +252,18 @@ class CustomInputField extends StatelessWidget {
                 bottomRight: Radius.circular(0),
               ),
               border: Border(
-                top: BorderSide(width: 2.0, color: ThemeUtils.getBorderColor(currentTheme)),
-                right: BorderSide(width: 0, color: ThemeUtils.getBorderColor(currentTheme)),
-                bottom: BorderSide(width: 2.0, color: ThemeUtils.getBorderColor(currentTheme)),
-                left: BorderSide(width: 2.0, color: ThemeUtils.getBorderColor(currentTheme)),
+                top: BorderSide(
+                    width: 2.0, color: ThemeUtils.getBorderColor(currentTheme)),
+                right: BorderSide(
+                    width: 0, color: ThemeUtils.getBorderColor(currentTheme)),
+                bottom: BorderSide(
+                    width: 2.0, color: ThemeUtils.getBorderColor(currentTheme)),
+                left: BorderSide(
+                    width: 2.0, color: ThemeUtils.getBorderColor(currentTheme)),
               ),
             ),
-            child:
-                Icon(inputIcon, color: ThemeUtils.getForeground(currentTheme), size: 16),
+            child: Icon(inputIcon,
+                color: ThemeUtils.getForeground(currentTheme), size: 16),
           ),
           Expanded(
             child: Container(
@@ -218,13 +275,22 @@ class CustomInputField extends StatelessWidget {
                     bottomRight: Radius.circular(10.0),
                   ),
                   border: Border(
-                    top: BorderSide(width: 2.0, color: ThemeUtils.getBorderColor(currentTheme)),
-                    right: BorderSide(width: 2.0, color: ThemeUtils.getBorderColor(currentTheme)),
-                    bottom: BorderSide(width: 2.0, color: ThemeUtils.getBorderColor(currentTheme)),
-                    left: BorderSide(width: 2.0, color: ThemeUtils.getBorderColor(currentTheme)),
+                    top: BorderSide(
+                        width: 2.0,
+                        color: ThemeUtils.getBorderColor(currentTheme)),
+                    right: BorderSide(
+                        width: 2.0,
+                        color: ThemeUtils.getBorderColor(currentTheme)),
+                    bottom: BorderSide(
+                        width: 2.0,
+                        color: ThemeUtils.getBorderColor(currentTheme)),
+                    left: BorderSide(
+                        width: 2.0,
+                        color: ThemeUtils.getBorderColor(currentTheme)),
                   ),
                 ),
                 child: TextFormField(
+                  controller: controller,
                   obscureText: isPassword,
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),

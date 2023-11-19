@@ -4,12 +4,21 @@ import 'package:mediguide/utils/theme_constants.dart';
 import 'package:mediguide/utils/theme_manager.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(
-  ChangeNotifierProvider<ThemeManager>(
-    create: (_) => ThemeManager(),
-    child: const MyApp(),
-  ),
-);
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(
+    ChangeNotifierProvider<ThemeManager>(
+      create: (_) => ThemeManager(),
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,7 +34,6 @@ class MyApp extends StatelessWidget {
         theme: lightTheme,
         darkTheme: darkTheme,
         themeMode: themeManager.themeMode,
-        home: const SplashScreen()
-    );
+        home: const SplashScreen());
   }
 }
