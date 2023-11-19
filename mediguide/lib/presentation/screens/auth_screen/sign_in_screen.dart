@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mediguide/presentation/screens/sign_up_screen.dart';
+import 'package:mediguide/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:mediguide/utils/theme_constants.dart';
-import '../../utils/theme_utils.dart';
+import '../../../utils/theme_utils.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
