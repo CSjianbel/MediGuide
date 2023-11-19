@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
+
 import 'package:mediguide/enums/menu_actions.dart';
 import 'package:mediguide/presentation/screens/sign_in_screen.dart';
 import 'package:mediguide/utils/theme_constants.dart';
-import 'package:mediguide/utils/theme_manager.dart';
-import 'package:provider/provider.dart';
+// import 'package:mediguide/utils/theme_manager.dart';
 import 'package:mediguide/utils/theme_utils.dart';
 import 'package:mediguide/utils/custom_icons.dart';
+import 'package:mediguide/presentation/widgets/settings.dart';
+import 'package:mediguide/presentation/widgets/user_chat_bubble.dart';
+import 'package:mediguide/presentation/widgets/bot_chat_bubble.dart';
+import 'package:mediguide/presentation/widgets/chat_input_section.dart';
 
-import '../widgets/settings.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final themeManager = Provider.of<ThemeManager>(context);
+    // final themeManager = Provider.of<ThemeManager>(context);
 
     return Scaffold(
       appBar: const PreferredSize(
@@ -51,105 +55,6 @@ class ChatScreen extends StatelessWidget {
   }
 }
 
-class UserChatBubble extends StatelessWidget {
-  final String message;
-
-  const UserChatBubble({
-    super.key,
-    required this.message,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0),
-      child: SizedBox(
-        width: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(
-              constraints: BoxConstraints(
-                maxWidth: screenWidth * 0.7, // Set the maximum width here
-              ),
-              padding: const EdgeInsets.all(12.0),
-              decoration: const BoxDecoration(
-                color: accentColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10.0),
-                  topRight: Radius.circular(2.0),
-                  bottomLeft: Radius.circular(10.0),
-                  bottomRight: Radius.circular(10.0),
-                ),
-              ),
-              child: Text(
-                message,
-                style: const TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 12,
-                    color: lightForeground),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class BotChatBubble extends StatelessWidget {
-  final String message;
-
-  const BotChatBubble({
-    super.key,
-    required this.message,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData currentTheme = ThemeUtils.getTheme(context);
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0),
-      child: SizedBox(
-        width: double.infinity,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 5),
-              child: Image.asset("assets/images/Logo.png",
-                  width: 25, height: 25, fit: BoxFit.fitWidth),
-            ),
-            const SizedBox(width: 10.0),
-            Container(
-              constraints: BoxConstraints(
-                maxWidth: screenWidth * 0.7, // Set the maximum width here
-              ),
-              padding: const EdgeInsets.all(12.0),
-              decoration: BoxDecoration(
-                color: currentTheme.appBarTheme.backgroundColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(2.0),
-                  topRight: Radius.circular(10.0),
-                  bottomLeft: Radius.circular(10.0),
-                  bottomRight: Radius.circular(10.0),
-                ),
-              ),
-              child: Text(
-                message,
-                style: const TextStyle(fontFamily: 'Poppins', fontSize: 12),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -515,66 +420,6 @@ class AppBarPopupMenu extends StatelessWidget {
                   child: Text('Settings', style: TextStyle(fontSize: 12)),
                 ),
               ]),
-    );
-  }
-}
-
-class ChatInputSection extends StatelessWidget {
-  const ChatInputSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData currentTheme = ThemeUtils.getTheme(context);
-
-    return Container(
-      padding: const EdgeInsets.all(15.0),
-      color: currentTheme.appBarTheme.backgroundColor,
-      child: Row(
-        children: [
-          Expanded(
-            child: SizedBox(
-              width: double.infinity,
-              height: 45,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: ThemeUtils.getIconBackground(currentTheme),
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  hintText: 'How are you feeling today?',
-                  hintStyle: const TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 12,
-                  ),
-                ),
-                style: const TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 12,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(width: 15.0),
-          Container(
-            width: 45,
-            height: 45,
-            decoration: const BoxDecoration(
-                color: accentColor,
-                borderRadius: BorderRadius.all(Radius.circular(10.0))),
-            child: IconButton(
-              icon: const Icon(Icons.send, color: lightForeground, size: 20),
-              onPressed: () {
-                // Add logic to send the message
-              },
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
