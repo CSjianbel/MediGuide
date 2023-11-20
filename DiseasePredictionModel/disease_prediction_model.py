@@ -55,8 +55,3 @@ class DiseasePredictionModel:
     def _import_csv(self, path: str):
         print(f"Importing {path}...")
         return pd.read_csv(path)
-
-    def export(self, path: str):
-        pass
-
-
