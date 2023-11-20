@@ -1,10 +1,9 @@
-import os
-
 import pandas as pd
 import numpy as np
 from sklearn import preprocessing
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
+import joblib
 
 class DiseasePredictionModel:
 
@@ -14,11 +13,9 @@ class DiseasePredictionModel:
         self.testing_set = self._import_csv(testing_set)
 
         self.train_x = self.training_set.iloc[:, :-1]
-        # self.classes = self.training_set.iloc[:, -1].unique()
         self.train_y = self.training_set.iloc[:, -1]
 
         self.test_x = self.testing_set.iloc[:, :-1]
-        # self.classes = self.training_set.iloc[:, -1].unique()
         self.test_y = self.testing_set.iloc[:, -1]
 
         # preprocess data
@@ -55,3 +52,8 @@ class DiseasePredictionModel:
     def _import_csv(self, path: str):
         print(f"Importing {path}...")
         return pd.read_csv(path)
+
+    def export(self, path: str):
+        print(f"Exporting model to {path}...")
+        joblib.dump(self.clf, path)
+
