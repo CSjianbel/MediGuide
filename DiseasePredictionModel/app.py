@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 
 import pandas as pd
 
-from utils import model, COLUMNS, LE
+from utils import model, COLUMNS, LE, get_disease_description, get_disease_precautions
 
 app = FastAPI()
 
@@ -36,5 +36,16 @@ async def predict(request: dict):
         prognosis = LE.inverse_transform(prognosis)
         # Return predicted disease
         return JSONResponse(content={"prognosis": prognosis[0]})
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/info/{disease}")
+async def get_disease_info(disease: str):
+    try: 
+        description = get_disease_description(disease)
+        print(description)
+        precaution = get_disease_precautions(disease) 
+        print(precaution)
+        return JSONResponse(content={"description": description, "precaution": precaution})
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
