@@ -1,0 +1,282 @@
+[
+    {
+      "Disease": "Malaria",
+      "stop irritation": "Consult nearest hospital",
+      "consult nearest hospital": "avoid oily food",
+      "stop taking drug": "avoid non veg food",
+      "follow up": "keep mosquitos out"
+    },
+    {
+      "Disease": "Allergy",
+      "stop irritation": "apply calamine",
+      "consult nearest hospital": "cover area with bandage",
+      "stop taking drug": null,
+      "follow up": "use ice to compress itching"
+    },
+    {
+      "Disease": "Hypothyroidism",
+      "stop irritation": "reduce stress",
+      "consult nearest hospital": "exercise",
+      "stop taking drug": "eat healthy",
+      "follow up": "get proper sleep"
+    },
+    {
+      "Disease": "Psoriasis",
+      "stop irritation": "wash hands with warm soapy water",
+      "consult nearest hospital": "stop bleeding using pressure",
+      "stop taking drug": "consult doctor",
+      "follow up": "salt baths"
+    },
+    {
+      "Disease": "GERD",
+      "stop irritation": "avoid fatty spicy food",
+      "consult nearest hospital": "avoid lying down after eating",
+      "stop taking drug": "maintain healthy weight",
+      "follow up": "exercise"
+    },
+    {
+      "Disease": "Chronic cholestasis",
+      "stop irritation": "cold baths",
+      "consult nearest hospital": "anti itch medicine",
+      "stop taking drug": "consult doctor",
+      "follow up": "eat healthy"
+    },
+    {
+      "Disease": "hepatitis A",
+      "stop irritation": "Consult nearest hospital",
+      "consult nearest hospital": "wash hands through",
+      "stop taking drug": "avoid fatty spicy food",
+      "follow up": "medication"
+    },
+    {
+      "Disease": "Osteoarthristis",
+      "stop irritation": "acetaminophen",
+      "consult nearest hospital": "consult nearest hospital",
+      "stop taking drug": "follow up",
+      "follow up": "salt baths"
+    },
+    {
+      "Disease": "(vertigo) Paroymsal  Positional Vertigo",
+      "stop irritation": "lie down",
+      "consult nearest hospital": "avoid sudden change in body",
+      "stop taking drug": "avoid abrupt head movment",
+      "follow up": "relax"
+    },
+    {
+      "Disease": "Hypoglycemia",
+      "stop irritation": "lie down on side",
+      "consult nearest hospital": "check in pulse",
+      "stop taking drug": "drink sugary drinks",
+      "follow up": "consult doctor"
+    },
+    {
+      "Disease": "Acne",
+      "stop irritation": "bath twice",
+      "consult nearest hospital": "avoid fatty spicy food",
+      "stop taking drug": "drink plenty of water",
+      "follow up": "avoid too many products"
+    },
+    {
+      "Disease": "Diabetes ",
+      "stop irritation": "have balanced diet",
+      "consult nearest hospital": "exercise",
+      "stop taking drug": "consult doctor",
+      "follow up": "follow up"
+    },
+    {
+      "Disease": "Impetigo",
+      "stop irritation": "soak affected area in warm water",
+      "consult nearest hospital": "use antibiotics",
+      "stop taking drug": "remove scabs with wet compressed cloth",
+      "follow up": "consult doctor"
+    },
+    {
+      "Disease": "Hypertension ",
+      "stop irritation": "meditation",
+      "consult nearest hospital": "salt baths",
+      "stop taking drug": "reduce stress",
+      "follow up": "get proper sleep"
+    },
+    {
+      "Disease": "Peptic ulcer diseae",
+      "stop irritation": "avoid fatty spicy food",
+      "consult nearest hospital": "consume probiotic food",
+      "stop taking drug": "eliminate milk",
+      "follow up": "limit alcohol"
+    },
+    {
+      "Disease": "Dimorphic hemmorhoids(piles)",
+      "stop irritation": "avoid fatty spicy food",
+      "consult nearest hospital": "consume witch hazel",
+      "stop taking drug": "warm bath with epsom salt",
+      "follow up": "consume alovera juice"
+    },
+    {
+      "Disease": "Common Cold",
+      "stop irritation": "drink vitamin c rich drinks",
+      "consult nearest hospital": "take vapour",
+      "stop taking drug": "avoid cold food",
+      "follow up": "keep fever in check"
+    },
+    {
+      "Disease": "Chicken pox",
+      "stop irritation": "use neem in bathing ",
+      "consult nearest hospital": "consume neem leaves",
+      "stop taking drug": "take vaccine",
+      "follow up": "avoid public places"
+    },
+    {
+      "Disease": "Cervical spondylosis",
+      "stop irritation": "use heating pad or cold pack",
+      "consult nearest hospital": "exercise",
+      "stop taking drug": "take otc pain reliver",
+      "follow up": "consult doctor"
+    },
+    {
+      "Disease": "Hyperthyroidism",
+      "stop irritation": "eat healthy",
+      "consult nearest hospital": "massage",
+      "stop taking drug": "use lemon balm",
+      "follow up": "take radioactive iodine treatment"
+    },
+    {
+      "Disease": "Urinary tract infection",
+      "stop irritation": "drink plenty of water",
+      "consult nearest hospital": "increase vitamin c intake",
+      "stop taking drug": "drink cranberry juice",
+      "follow up": "take probiotics"
+    },
+    {
+      "Disease": "Varicose veins",
+      "stop irritation": "lie down flat and raise the leg high",
+      "consult nearest hospital": "use oinments",
+      "stop taking drug": "use vein compression",
+      "follow up": "dont stand still for long"
+    },
+    {
+      "Disease": "AIDS",
+      "stop irritation": "avoid open cuts",
+      "consult nearest hospital": "wear ppe if possible",
+      "stop taking drug": "consult doctor",
+      "follow up": "follow up"
+    },
+    {
+      "Disease": "Paralysis (brain hemorrhage)",
+      "stop irritation": "massage",
+      "consult nearest hospital": "eat healthy",
+      "stop taking drug": "exercise",
+      "follow up": "consult doctor"
+    },
+    {
+      "Disease": "Typhoid",
+      "stop irritation": "eat high calorie vegitables",
+      "consult nearest hospital": "antiboitic therapy",
+      "stop taking drug": "consult doctor",
+      "follow up": "medication"
+    },
+    {
+      "Disease": "Hepatitis B",
+      "stop irritation": "consult nearest hospital",
+      "consult nearest hospital": "vaccination",
+      "stop taking drug": "eat healthy",
+      "follow up": "medication"
+    },
+    {
+      "Disease": "Fungal infection",
+      "stop irritation": "bath twice",
+      "consult nearest hospital": "use detol or neem in bathing water",
+      "stop taking drug": "keep infected area dry",
+      "follow up": "use clean cloths"
+    },
+    {
+      "Disease": "Hepatitis C",
+      "stop irritation": "Consult nearest hospital",
+      "consult nearest hospital": "vaccination",
+      "stop taking drug": "eat healthy",
+      "follow up": "medication"
+    },
+    {
+      "Disease": "Migraine",
+      "stop irritation": "meditation",
+      "consult nearest hospital": "reduce stress",
+      "stop taking drug": "use poloroid glasses in sun",
+      "follow up": "consult doctor"
+    },
+    {
+      "Disease": "Bronchial Asthma",
+      "stop irritation": "switch to loose cloothing",
+      "consult nearest hospital": "take deep breaths",
+      "stop taking drug": "get away from trigger",
+      "follow up": "seek help"
+    },
+    {
+      "Disease": "Alcoholic hepatitis",
+      "stop irritation": "stop alcohol consumption",
+      "consult nearest hospital": "consult doctor",
+      "stop taking drug": "medication",
+      "follow up": "follow up"
+    },
+    {
+      "Disease": "Jaundice",
+      "stop irritation": "drink plenty of water",
+      "consult nearest hospital": "consume milk thistle",
+      "stop taking drug": "eat fruits and high fiberous food",
+      "follow up": "medication"
+    },
+    {
+      "Disease": "Hepatitis E",
+      "stop irritation": "stop alcohol consumption",
+      "consult nearest hospital": "rest",
+      "stop taking drug": "consult doctor",
+      "follow up": "medication"
+    },
+    {
+      "Disease": "Dengue",
+      "stop irritation": "drink papaya leaf juice",
+      "consult nearest hospital": "avoid fatty spicy food",
+      "stop taking drug": "keep mosquitos away",
+      "follow up": "keep hydrated"
+    },
+    {
+      "Disease": "Hepatitis D",
+      "stop irritation": "consult doctor",
+      "consult nearest hospital": "medication",
+      "stop taking drug": "eat healthy",
+      "follow up": "follow up"
+    },
+    {
+      "Disease": "Heart attack",
+      "stop irritation": "call ambulance",
+      "consult nearest hospital": "chew or swallow asprin",
+      "stop taking drug": "keep calm",
+      "follow up": null
+    },
+    {
+      "Disease": "Pneumonia",
+      "stop irritation": "consult doctor",
+      "consult nearest hospital": "medication",
+      "stop taking drug": "rest",
+      "follow up": "follow up"
+    },
+    {
+      "Disease": "Arthritis",
+      "stop irritation": "exercise",
+      "consult nearest hospital": "use hot and cold therapy",
+      "stop taking drug": "try acupuncture",
+      "follow up": "massage"
+    },
+    {
+      "Disease": "Gastroenteritis",
+      "stop irritation": "stop eating solid food for while",
+      "consult nearest hospital": "try taking small sips of water",
+      "stop taking drug": "rest",
+      "follow up": "ease back into eating"
+    },
+    {
+      "Disease": "Tuberculosis",
+      "stop irritation": "cover mouth",
+      "consult nearest hospital": "consult doctor",
+      "stop taking drug": "medication",
+      "follow up": "rest"
+    }
+  ]
