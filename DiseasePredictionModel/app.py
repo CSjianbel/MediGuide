@@ -43,9 +43,7 @@ async def predict(request: dict):
 async def get_disease_info(disease: str):
     try: 
         description = get_disease_description(disease)
-        print(description)
         precaution = get_disease_precautions(disease) 
-        print(precaution)
         return JSONResponse(content={"description": description, "precaution": precaution})
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
