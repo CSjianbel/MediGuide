@@ -1,4 +1,5 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mediguide/presentation/screens/auth_screen/sign_in_screen.dart';
 import 'package:mediguide/presentation/screens/chat_screen/widgets/custom_chat_history_tile.dart';
@@ -12,6 +13,8 @@ class NavigationDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData currentTheme = ThemeUtils.getTheme(context);
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
 
     return Drawer(
       backgroundColor: currentTheme.scaffoldBackgroundColor,
@@ -135,7 +138,8 @@ class NavigationDrawer extends StatelessWidget {
                 const SizedBox(height: 5),
 
                 // Show User Profile when Signed In
-                Row(
+
+                if (user != null) Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
@@ -159,16 +163,16 @@ class NavigationDrawer extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 20),
-                        const Column(
+                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("JOHN DOE",
-                                style: TextStyle(
+                            Text("",
+                                style: const TextStyle(
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 12)),
-                            Text("email@gmail.com",
-                                style: TextStyle(
+                            Text(user.email!,
+                                style: const TextStyle(
                                     fontFamily: 'Poppins',
                                     fontSize: 10,
                                     color: Color(0xFF858585)))

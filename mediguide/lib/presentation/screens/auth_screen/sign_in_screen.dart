@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mediguide/controllers/auth.controller.dart';
 import 'package:mediguide/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:mediguide/presentation/screens/chat_screen/chat_screen.dart';
 import 'package:mediguide/utils/theme_constants.dart';
@@ -16,27 +17,17 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  Future<void> login(context) async {
-    try {
-      print('Logging in!!!');
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
+  Future<void> handleLoginPressed(context) async {
+    AuthResponse loginResponse = await AuthController.login(emailController.text.trim(), passwordController.text.trim());
+
+    if (loginResponse.success) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const ChatScreen(),
+        ),
       );
-
-      // Navigate to chat screen for successful login
-      if (userCredential.user != null) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const ChatScreen(),
-          ),
-        );
-      }
-    } catch (e) {
-      // Handle sign-up failure
-      print(e.toString());
-
+    }
+    else {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -165,7 +156,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             ),
                           ),
                           onPressed: () {
-                            login(context);
+                            handleLoginPressed(context);
                           },
                           child: const Text("Sign In",
                               style: TextStyle(
