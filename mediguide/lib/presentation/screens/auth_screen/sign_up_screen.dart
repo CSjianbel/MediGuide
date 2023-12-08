@@ -1,9 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mediguide/utils/theme_utils.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../../controllers/auth.controller.dart';
+import 'package:mediguide/controllers/auth.controller.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);

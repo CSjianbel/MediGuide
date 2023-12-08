@@ -1,6 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mediguide/controllers/auth.controller.dart';
 import 'package:mediguide/presentation/screens/auth_screen/sign_in_screen.dart';
 import 'package:mediguide/presentation/screens/chat_screen/widgets/custom_chat_history_tile.dart';
 import 'package:mediguide/presentation/widgets/settings.dart';
@@ -9,6 +10,10 @@ import 'package:mediguide/utils/theme_utils.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
+
+  Future<void> handleLogoutPressed() async {
+    AuthController.logout();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,26 +208,44 @@ class NavigationDrawer extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 // Sign In Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 45,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const SignInScreen(),
+                if (!AuthController.isAuthenticated())
+                  SizedBox(
+                    width: double.infinity,
+                    height: 45,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                        );
-                      },
-                      child: const Text("Sign In",
-                          style:
-                              TextStyle(fontFamily: 'Poppins', fontSize: 12))),
-                )
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const SignInScreen(),
+                            ),
+                          );
+                        },
+                        child: const Text("Sign In",
+                            style:
+                                TextStyle(fontFamily: 'Poppins', fontSize: 12))),
+                  )
+                else
+                  SizedBox(
+                    width: double.infinity,
+                    height: 45,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onPressed: () {
+                          AuthController.logout();
+                        },
+                        child: const Text("Sign Out",
+                            style:
+                            TextStyle(fontFamily: 'Poppins', fontSize: 12))),
+                  )
               ],
             ),
           )

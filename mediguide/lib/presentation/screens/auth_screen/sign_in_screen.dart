@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mediguide/controllers/auth.controller.dart';
 import 'package:mediguide/presentation/screens/auth_screen/sign_up_screen.dart';

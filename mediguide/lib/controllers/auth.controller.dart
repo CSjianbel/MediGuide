@@ -57,4 +57,19 @@ class AuthController {
       return AuthResponse(success: false, message: "Something went wrong.");
     }
   }
+
+  static Future<void> logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      // Handle sign-out errors
+      print('Error signing out: $e');
+    }
+  }
+
+  static bool isAuthenticated() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
+    return user != null;
+  }
 }
