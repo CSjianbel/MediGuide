@@ -18,7 +18,10 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController passwordController = TextEditingController();
 
   Future<void> handleLoginPressed(context) async {
-    AuthResponse loginResponse = await AuthController.login(emailController.text.trim(), passwordController.text.trim());
+    AuthResponse loginResponse = await AuthController.login(
+        emailController.text.trim(),
+        passwordController.text.trim()
+    );
 
     if (loginResponse.success) {
       Navigator.of(context).push(

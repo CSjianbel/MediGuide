@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mediguide/utils/theme_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../controllers/auth.controller.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
@@ -18,28 +20,17 @@ class SignUpScreenState extends State<SignUpScreen> {
   TextEditingController passwordController = TextEditingController();
 
   Future<void> register(context) async {
-    try {
-      print('REGISTERING USER!!!');
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
+    AuthResponse registerResponse = await AuthController.register(
+        emailController.text.trim(),
+        passwordController.text.trim(),
+        fullNameController.text.trim()
+    );
 
-      if (userCredential.user != null) {
-        // Store full name in Firestore
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(userCredential.user!.uid)
-            .set({'fullName': fullNameController.text.trim()});
-      }
-
-      // Navigate to login screen after registration
+    if (registerResponse.success) {
       Navigator.pop(context);
-      // Handle successful sign-in
-    } catch (e) {
-      // Handle sign-up failure
-      print(e.toString());
+    }
+    else {
+      print(registerResponse.message);
     }
   }
 
