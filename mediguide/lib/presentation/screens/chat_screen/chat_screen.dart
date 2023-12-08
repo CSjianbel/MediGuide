@@ -15,34 +15,39 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(70),
-        child: CustomAppBar(),
+        child: SafeArea(child: CustomAppBar()),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(15.0),
-              children: const <Widget>[
-                BotChatBubble(
-                    message:
-                        "Hello! I am MediGuide. How can I assist you today? If you're not feeling your best, just let me know your symptoms, and I'll do my best to provide you with some insights. Remember, I'm here to help, but for accurate medical advice, always consult a healthcare professional."),
-                UserChatBubble(
-                    message: "shivering, chills, joint pain, headache"),
-                BotChatBubble(
-                    message:
-                        "Based on your symptoms, you might have gastroenteritis. Gastroenteritis is a short-term illness triggered by the infection and inflammation of the digestive system."),
-                UserChatBubble(
-                    message: "shivering, chills, joint pain, headache"),
-                BotChatBubble(
-                    message:
-                        "Based on your symptoms, you might have gastroenteritis. Gastroenteritis is a short-term illness triggered by the infection and inflammation of the digestive system.")
-              ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.all(15.0),
+                children: const <Widget>[
+                  BotChatBubble(
+                      message:
+                      "Hello! I am MediGuide. How can I assist you today? If you're not feeling your best, just let me know your symptoms, and I'll do my best to provide you with some insights. Remember, I'm here to help, but for accurate medical advice, always consult a healthcare professional."),
+                  UserChatBubble(
+                      message: "shivering, chills, joint pain, headache"),
+                  BotChatBubble(
+                      message:
+                      "Based on your symptoms, you might have gastroenteritis. Gastroenteritis is a short-term illness triggered by the infection and inflammation of the digestive system."),
+                  UserChatBubble(
+                      message: "shivering, chills, joint pain, headache"),
+                  BotChatBubble(
+                      message:
+                      "Based on your symptoms, you might have gastroenteritis. Gastroenteritis is a short-term illness triggered by the infection and inflammation of the digestive system.")
+                ],
+              ),
             ),
-          ),
-          const ChatInputSection(),
-        ],
+            const ChatInputSection(),
+          ],
+        ),
       ),
-      drawer: const navigation_drawer.NavigationDrawer(),
+      drawer: const SafeArea(
+        child:
+        navigation_drawer.NavigationDrawer(),
+      )
     );
   }
 }

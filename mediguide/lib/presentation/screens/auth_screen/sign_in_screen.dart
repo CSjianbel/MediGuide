@@ -54,7 +54,9 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     final ThemeData currentTheme = ThemeUtils.getTheme(context);
 
-    return Material(
+    return SafeArea(
+      child:
+        Material(
       color: currentTheme.appBarTheme.backgroundColor,
       child: Center(
         child: Container(
@@ -208,6 +210,7 @@ class _SignInScreenState extends State<SignInScreen> {
           ]),
         ),
       ),
+    ),
     );
   }
 }
