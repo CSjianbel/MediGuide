@@ -11,12 +11,19 @@ class SignUpScreen extends StatefulWidget {
 
 class SignUpScreenState extends State<SignUpScreen> {
   bool agreeToTerms = false;
+  bool isCreatingAccount = false;
 
   TextEditingController fullNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   Future<void> register(context) async {
+    final ThemeData currentTheme = Theme.of(context);
+
+    setState(() {
+      isCreatingAccount = true;
+    });
+
     AuthResponse registerResponse = await AuthController.register(
         emailController.text.trim(),
         passwordController.text.trim(),
@@ -24,10 +31,33 @@ class SignUpScreenState extends State<SignUpScreen> {
     );
 
     if (registerResponse.success) {
+      setState(() {
+        isCreatingAccount = false;
+      });
       Navigator.pop(context);
     }
     else {
-      print(registerResponse.message);
+      setState(() {
+        isCreatingAccount = false;
+      });
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: currentTheme.appBarTheme.backgroundColor,
+            title: const Text('Login Failed',  style: TextStyle(fontFamily: 'Poppins', fontSize: 16, fontWeight: FontWeight.bold)),
+            content: Text(registerResponse.message, style: const TextStyle(fontFamily: 'Poppins', fontSize: 12)),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -136,12 +166,11 @@ class SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       onPressed: () {
-                        if (!agreeToTerms) return;
-                        register(context);
+                        (isCreatingAccount || !agreeToTerms) ? null : register(context);
                       },
-                      child: const Text("Create Account",
+                      child: Text(isCreatingAccount ? "Creating Account ..." : "Create Account",
                           style:
-                              TextStyle(fontFamily: 'Poppins', fontSize: 12)),
+                              const TextStyle(fontFamily: 'Poppins', fontSize: 12)),
                     ),
                   )
                 ],

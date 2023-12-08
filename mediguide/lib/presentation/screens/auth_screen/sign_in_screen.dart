@@ -4,6 +4,7 @@ import 'package:mediguide/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:mediguide/presentation/screens/chat_screen/chat_screen.dart';
 import 'package:mediguide/utils/theme_constants.dart';
 import 'package:mediguide/utils/theme_utils.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -15,27 +16,53 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isLoggingIn = false;
 
   Future<void> handleLoginPressed(context) async {
+    final ThemeData currentTheme = Theme.of(context);
+
+    setState(() {
+      isLoggingIn = true;
+    });
+
     AuthResponse loginResponse = await AuthController.login(
         emailController.text.trim(),
         passwordController.text.trim()
     );
 
     if (loginResponse.success) {
+      setState(() {
+        isLoggingIn = false;
+      });
+
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const ChatScreen(),
         ),
       );
+
+      Fluttertoast.showToast(
+          msg: "You are now signed in!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.blueGrey,
+          textColor: Colors.white,
+          fontSize: 14.0
+      );
     }
     else {
+      setState(() {
+        isLoggingIn = false;
+      });
+
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Login Failed'),
-            content: const Text('Invalid email or password. Please try again.'),
+            backgroundColor: currentTheme.appBarTheme.backgroundColor,
+            title: const Text('Login Failed',  style: TextStyle(fontFamily: 'Poppins', fontSize: 16, fontWeight: FontWeight.bold)),
+            content: Text(loginResponse.message, style: const TextStyle(fontFamily: 'Poppins', fontSize: 12)),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
@@ -160,10 +187,10 @@ class _SignInScreenState extends State<SignInScreen> {
                             ),
                           ),
                           onPressed: () {
-                            handleLoginPressed(context);
+                            isLoggingIn ? null : handleLoginPressed(context);
                           },
-                          child: const Text("Sign In",
-                              style: TextStyle(
+                          child: Text(isLoggingIn ? "Logging in .. " : "Sign In",
+                              style: const TextStyle(
                                   fontFamily: 'Poppins', fontSize: 12)),
                         ),
                       ),
