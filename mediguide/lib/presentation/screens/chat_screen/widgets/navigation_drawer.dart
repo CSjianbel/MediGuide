@@ -7,19 +7,55 @@ import 'package:mediguide/presentation/screens/chat_screen/widgets/custom_chat_h
 import 'package:mediguide/presentation/widgets/settings.dart';
 import 'package:mediguide/utils/theme_constants.dart';
 import 'package:mediguide/utils/theme_utils.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
 
-  Future<void> handleLogoutPressed() async {
-    AuthController.logout();
+  Future<void> handleLogoutPressed(context) async {
+    final ThemeData currentTheme = Theme.of(context);
+
+    showDialog(
+      context: context,
+        builder: (BuildContext builderContext) {
+          return AlertDialog(
+            backgroundColor: currentTheme.appBarTheme.backgroundColor,
+            title: const Text('Confirm Sign Out', style: TextStyle(fontFamily: 'Poppins', fontSize: 16, fontWeight: FontWeight.bold)),
+            content: const Text('Are you sure you want to sign out?', style: TextStyle(fontFamily: 'Poppins', fontSize: 12)),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel', style: TextStyle(fontFamily: 'Poppins', fontSize: 12)),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Scaffold.of(context).closeDrawer();
+                  AuthController.logout();
+                  Fluttertoast.showToast(
+                      msg: "You are now signed out",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.blueGrey,
+                      textColor: Colors.white,
+                      fontSize: 14.0
+                  );
+                },
+                child: const Text('Sign Out',  style: TextStyle(fontFamily: 'Poppins', fontSize: 12)),
+              ),
+            ],
+          );
+        }
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final ThemeData currentTheme = ThemeUtils.getTheme(context);
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user = auth.currentUser;
+    final FirebaseAuth auth = FirebaseAuth.instance;
 
     return Drawer(
       backgroundColor: currentTheme.scaffoldBackgroundColor,
@@ -140,43 +176,25 @@ class NavigationDrawer extends StatelessWidget {
             child: Column(
               children: [
                 // Below widgets will only appear when user is signed in
-                const SizedBox(height: 5),
+                if (AuthController.isAuthenticated())
+                  const SizedBox(height: 5),
 
                 // Show User Profile when Signed In
 
-                if (user != null) Row(
+                if (AuthController.isAuthenticated()) Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
-                        Container(
-                          width: 55,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: accentColor, // Set the border color
-                              width: 1, // Set the border width
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.asset(
-                              "assets/images/sample_user_picture.png",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 20),
                          Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("",
+                            Text(auth.currentUser!.displayName!,
                                 style: const TextStyle(
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 12)),
-                            Text(user.email!,
+                            Text(auth.currentUser!.email!,
                                 style: const TextStyle(
                                     fontFamily: 'Poppins',
                                     fontSize: 10,
@@ -194,19 +212,23 @@ class NavigationDrawer extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 20),
-
                 // Above widgets will only appear when user is signed in
+                Visibility(
+                    visible: AuthController.isAuthenticated(),
+                    child: Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      Divider(
+                        height: 1,
+                        color: ThemeUtils.getIconBackground(currentTheme),
+                        thickness: 2,
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                )),
 
-                Divider(
-                  height: 1,
-                  color: ThemeUtils.getIconBackground(currentTheme),
-                  thickness: 2,
-                ),
 
                 // Gap between the sign out & user profile
-                const SizedBox(height: 20),
-
                 // Sign In Button
                 if (!AuthController.isAuthenticated())
                   SizedBox(
@@ -240,7 +262,7 @@ class NavigationDrawer extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          AuthController.logout();
+                          handleLogoutPressed(context);
                         },
                         child: const Text("Sign Out",
                             style:

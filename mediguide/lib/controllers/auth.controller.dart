@@ -41,11 +41,7 @@ class AuthController {
 
       if (userCredential.user != null) {
         // Store full name in Firestore
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(userCredential.user!.uid)
-            .set({'fullName': fullName});
-
+        await userCredential.user!.updateDisplayName(fullName);
         return AuthResponse(success: true, message: "Account created successfully!");
       }
 
