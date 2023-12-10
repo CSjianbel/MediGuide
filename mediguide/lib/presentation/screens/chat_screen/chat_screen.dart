@@ -24,6 +24,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController messageController = TextEditingController();
+  final ScrollController scrollController = ScrollController();
   final List<Message> messages = [
     Message(
         bot: true,
@@ -43,6 +44,14 @@ class _ChatScreenState extends State<ChatScreen> {
             "Hello! I am MediGuide. How can I assist you today? If you're not feeling your best, just let me know your symptoms, and I'll do my best to provide you with some insights. Remember, I'm here to help, but for accurate medical advice, always consult a healthcare professional."),
   ];
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     _scrollToEnd();
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData currentTheme = ThemeUtils.getTheme(context);
@@ -56,6 +65,7 @@ class _ChatScreenState extends State<ChatScreen> {
             children: [
               Expanded(
                   child: ListView.builder(
+                      controller: scrollController,
                       padding: const EdgeInsets.all(15.0),
                       itemCount: messages.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -117,6 +127,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 bot: false, message: messageController.text));
                             FocusScope.of(context).unfocus();
                             messageController.text = '';
+                            _scrollToEnd();
                           });
                         },
                       ),
@@ -130,5 +141,20 @@ class _ChatScreenState extends State<ChatScreen> {
         drawer: const SafeArea(
           child: navigation_drawer.NavigationDrawer(),
         ));
+  }
+
+  void _scrollToEnd() {
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
+    messageController.dispose();
   }
 }
