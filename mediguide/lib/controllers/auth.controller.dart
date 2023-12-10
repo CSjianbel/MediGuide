@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthResponse {
   final bool success;
@@ -11,7 +10,7 @@ class AuthController {
   static Future<AuthResponse> login(email, password) async {
     try {
       UserCredential userCredential =
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -20,8 +19,9 @@ class AuthController {
         return AuthResponse(success: true, message: 'Successfully logged in!');
       }
 
-      return AuthResponse(success: false, message: "Invalid email or password. Please try again.");
-
+      return AuthResponse(
+          success: false,
+          message: "Invalid email or password. Please try again.");
     } catch (e) {
       // Handle sign-up failure
       String message;
@@ -37,8 +37,7 @@ class AuthController {
             message = "Invalid login credential.";
             break;
         }
-      }
-      else {
+      } else {
         message = "Something went wrong. Please try again later.";
       }
       return AuthResponse(success: false, message: message);
@@ -49,7 +48,7 @@ class AuthController {
     try {
       print('REGISTERING USER!!!');
       UserCredential userCredential =
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -57,11 +56,12 @@ class AuthController {
       if (userCredential.user != null) {
         // Store full name in Firestore
         await userCredential.user!.updateDisplayName(fullName);
-        return AuthResponse(success: true, message: "Account created successfully!");
+        return AuthResponse(
+            success: true, message: "Account created successfully!");
       }
 
-      return AuthResponse(success: false, message: "Account creation failed. Try again later.");
-
+      return AuthResponse(
+          success: false, message: "Account creation failed. Try again later.");
     } catch (e) {
       // Handle sign-up failure
       String message;
@@ -80,8 +80,7 @@ class AuthController {
             message = "Something went wrong. Please try again later.";
             break;
         }
-      }
-      else {
+      } else {
         message = "Something went wrong. Please try again later.";
       }
       return AuthResponse(success: false, message: message);
