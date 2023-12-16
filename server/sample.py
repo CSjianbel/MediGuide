@@ -2,20 +2,22 @@ from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 from langchain.memory import CassandraChatMessageHistory, ConversationBufferMemory
 from langchain.llms import OpenAI
-from langchain import LLMChain, PromptTemplate
-import json
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
+import os
+import dotenv
+
+dotenv.load_dotenv()
 
 cloud_config= {
-  'secure_connect_bundle': 'secure-connect-choose-your-own-adventure.zip'
+'secure_connect_bundle': 'secure-connect-mediguide.zip'
 }
 
-with open("choose_your_own_adventure-token.json") as f:
-    secrets = json.load(f)
 
-CLIENT_ID = secrets["clientId"]
-CLIENT_SECRET = secrets["secret"]
-ASTRA_DB_KEYSPACE = ""
-OPENAI_API_KEY = ""
+CLIENT_ID = os.getenv("CLIENT_ID")
+CLIENT_SECRET = os.getenv("CLIENT_SECRET")
+ASTRA_DB_KEYSPACE = os.getenv("ASTRA_DB_KEYSPACE")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 auth_provider = PlainTextAuthProvider(CLIENT_ID, CLIENT_SECRET)
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
@@ -57,7 +59,7 @@ prompt = PromptTemplate(
     template=template
 )
 
-llm = OpenAI(openai_api_key=OPENAI_API_KEY)
+llm = OpenAI(api_key=OPENAI_API_KEY)
 llm_chain = LLMChain(
     llm=llm,
     prompt=prompt,
