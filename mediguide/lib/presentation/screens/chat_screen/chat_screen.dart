@@ -30,6 +30,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  bool sendIsEnabled = false;
   final String ip_address = "192.168.100.9";
   final TextEditingController messageController = TextEditingController();
   final ScrollController scrollController = ScrollController();
@@ -51,6 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
         print(body);
         setState(() {
           messages[0] = Message(bot: true, message: body['mediguide']);
+          sendIsEnabled = true;
         });
       } else {
         throw Exception('Failed to prompt MediGuide');
@@ -74,6 +76,7 @@ class _ChatScreenState extends State<ChatScreen> {
         print(body);
         setState(() {
           messages[index] = Message(bot: true, message: body['mediguide']);
+          sendIsEnabled = true;
         });
       } else {
         throw Exception('Failed to prompt MediGuide');
@@ -155,20 +158,27 @@ class _ChatScreenState extends State<ChatScreen> {
                     Container(
                       width: 45,
                       height: 45,
-                      decoration: const BoxDecoration(
-                          color: accentColor,
+                      decoration: BoxDecoration(
+                          color: (sendIsEnabled)
+                              ? accentColor
+                              : iconDarkBackground,
                           borderRadius:
-                              BorderRadius.all(Radius.circular(10.0))),
+                              const BorderRadius.all(Radius.circular(10.0))),
                       child: IconButton(
-                        icon: const Icon(Icons.send,
-                            color: lightForeground, size: 20),
+                        icon: Icon(Icons.send,
+                            color: (sendIsEnabled)
+                                ? lightForeground
+                                : darkForeground,
+                            size: 20),
                         onPressed: () {
+                          if (messageController.text.isEmpty) return;
                           setState(() {
                             messages.addAll([
                               Message(
                                   bot: false, message: messageController.text),
                               Message(bot: true, message: "")
                             ]);
+                            sendIsEnabled = false;
                           });
                           promptMediGuide(
                               messageController.text, messages.length - 1);
