@@ -13,6 +13,7 @@ async def prompt():
         chatbot = MediGuideLLM()
         chatbot.start()
         response = chatbot.prompt("start")
+        print(f"Mediguide: {response}")
         return JSONResponse(content={"mediguide": response})
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -22,6 +23,7 @@ async def prompt(request: dict):
     try:
         chatbot = MediGuideLLM()
         response = chatbot.prompt(request["prompt"])
+        print(f"Mediguide: {response}")
         return JSONResponse(content={"mediguide": response})
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
