@@ -171,7 +171,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                 : darkForeground,
                             size: 20),
                         onPressed: () {
-                          if (messageController.text.isEmpty) return;
+                          if (messageController.text.isEmpty ||
+                              !sendIsEnabled) {
+                            return;
+                          }
                           setState(() {
                             messages.addAll([
                               Message(
