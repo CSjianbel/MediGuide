@@ -33,7 +33,7 @@ class CustomAppBar extends StatelessWidget {
       ),
       title: Center(
         child: Text(
-          'New Chat',
+          'MediGuide',
           style: TextStyle(
             color: ThemeUtils.getForeground(currentTheme),
             fontFamily: 'Poppins',
