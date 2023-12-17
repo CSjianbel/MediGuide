@@ -68,8 +68,8 @@ class NavigationDrawer extends StatelessWidget {
     final ThemeData currentTheme = ThemeUtils.getTheme(context);
     final FirebaseAuth auth = FirebaseAuth.instance;
     final List<Chat> chats = [
-      Chat(id: "asdfasdf", title: "Cancer Prognosis"),
-      Chat(id: "asdasdfasdf1", title: "Diabetes")
+      // Chat(id: "asdfasdf", title: "Cancer Prognosis"),
+      // Chat(id: "asdasdfasdf1", title: "Diabetes")
     ];
 
     return Drawer(
