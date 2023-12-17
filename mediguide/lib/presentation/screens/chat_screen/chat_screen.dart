@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 
+import 'package:mediguide/utils/theme_utils.dart';
+import 'package:mediguide/utils/theme_constants.dart';
 import 'package:mediguide/presentation/screens/chat_screen/widgets/app_bar.dart';
 import 'package:mediguide/presentation/screens/chat_screen/widgets/user_chat_bubble.dart';
 import 'package:mediguide/presentation/screens/chat_screen/widgets/bot_chat_bubble.dart';
 import 'package:mediguide/presentation/screens/chat_screen/widgets/navigation_drawer.dart'
     as navigation_drawer;
-import 'package:mediguide/utils/theme_utils.dart';
-import 'package:mediguide/utils/theme_constants.dart';
+
+import 'package:http/http.dart' as http;
+import 'dart:convert'; // For handling JSON data
 
 class Message {
-  final String message;
+  String message;
   final bool bot;
 
   Message({required this.bot, required this.message});
+
+  void setMessage(message) {
+    this.message = message;
+  }
 }
 
 class ChatScreen extends StatefulWidget {
@@ -23,34 +30,67 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final String ip_address = "192.168.100.9";
   final TextEditingController messageController = TextEditingController();
   final ScrollController scrollController = ScrollController();
-  final List<Message> messages = [
-    Message(
-        bot: true,
-        message:
-            "Hello! I am MediGuide. How can I assist you today? If you're not feeling your best, just let me know your symptoms, and I'll do my best to provide you with some insights. Remember, I'm here to help, but for accurate medical advice, always consult a healthcare professional."),
-    Message(
-        bot: false,
-        message:
-            "Hello! I am MediGuide. How can I assist you today? If you're not feeling your best, just let me know your symptoms, and I'll do my best to provide you with some insights. Remember, I'm here to help, but for accurate medical advice, always consult a healthcare professional."),
-    Message(
-        bot: true,
-        message:
-            "Hello! I am MediGuide. How can I assist you today? If you're not feeling your best, just let me know your symptoms, and I'll do my best to provide you with some insights. Remember, I'm here to help, but for accurate medical advice, always consult a healthcare professional."),
-    Message(
-        bot: false,
-        message:
-            "Hello! I am MediGuide. How can I assist you today? If you're not feeling your best, just let me know your symptoms, and I'll do my best to provide you with some insights. Remember, I'm here to help, but for accurate medical advice, always consult a healthcare professional."),
-  ];
+  final List<Message> messages = [Message(bot: true, message: "")];
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     _scrollToEnd();
-  //   });
-  // }
+  void setBotMessage(int index, String message) {
+    setState(() {
+      messages[index].setMessage(message);
+    });
+  }
+
+  Future<void> startChat() async {
+    var url = Uri.parse("http://${ip_address}:8000/api/start");
+
+    try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        var body = json.decode(response.body);
+        print(body);
+        setState(() {
+          messages[0] = Message(bot: true, message: body['mediguide']);
+        });
+      } else {
+        throw Exception('Failed to prompt MediGuide');
+      }
+    } catch (e) {
+      throw Exception('Error $e');
+    }
+  }
+
+  Future<void> promptMediGuide(String prev, int index) async {
+    var url = Uri.parse("http://${ip_address}:8000/api/prompt");
+    var requestBody = {"prompt": prev};
+
+    try {
+      var response = await http.post(url,
+          body: json.encode(requestBody),
+          headers: {'Content-Type': 'application/json'});
+
+      if (response.statusCode == 200) {
+        var body = json.decode(response.body);
+        print(body);
+        setState(() {
+          messages[index] = Message(bot: true, message: body['mediguide']);
+        });
+      } else {
+        throw Exception('Failed to prompt MediGuide');
+      }
+    } catch (e) {
+      throw Exception('Error $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToEnd();
+    });
+    startChat();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +111,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       itemBuilder: (BuildContext context, int index) {
                         if (messages[index].bot) {
                           return BotChatBubble(
-                              message: messages[index].message);
+                            message: messages[index].message,
+                          );
                         }
                         return UserChatBubble(message: messages[index].message);
                       })),
@@ -123,12 +164,17 @@ class _ChatScreenState extends State<ChatScreen> {
                             color: lightForeground, size: 20),
                         onPressed: () {
                           setState(() {
-                            messages.add(Message(
-                                bot: false, message: messageController.text));
-                            FocusScope.of(context).unfocus();
-                            messageController.text = '';
-                            _scrollToEnd();
+                            messages.addAll([
+                              Message(
+                                  bot: false, message: messageController.text),
+                              Message(bot: true, message: "")
+                            ]);
                           });
+                          promptMediGuide(
+                              messageController.text, messages.length - 1);
+                          FocusScope.of(context).unfocus();
+                          messageController.text = '';
+                          _scrollToEnd();
                         },
                       ),
                     ),
